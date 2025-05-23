@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["testDeployGCP.csproj", "./"]
-RUN dotnet restore "./testDeployGCP.csproj"COPY . .
+RUN dotnet restore "./testDeployGCP.csproj" COPY . .
 WORKDIR "/src/testDeployGCP"
 RUN dotnet build "./testDeployGCP.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
