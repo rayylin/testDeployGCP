@@ -8,10 +8,10 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copy only the .csproj first
-COPY ["testDeployGCP/testDeployGCP.csproj", "testDeployGCP/"]
+COPY ["testDeployGCP.csproj", "./"]
 
 # Restore dependencies
-RUN dotnet restore "testDeployGCP/testDeployGCP.csproj"
+RUN dotnet restore "./testDeployGCP.csproj"
 
 # Copy the rest of the source code
 COPY . .
@@ -19,8 +19,8 @@ COPY . .
 # Change into the project directory
 WORKDIR "/src/testDeployGCP"
 
-# Build the app
-RUN dotnet build "testDeployGCP.csproj" -c $BUILD_CONFIGURATION -o /app/build
+# Build
+RUN dotnet build "./testDeployGCP.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
