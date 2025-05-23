@@ -5,13 +5,12 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-ARG BUILD_CONFIGURATION=Release
+COPY ["testDeployGCP/testDeployGCP.csproj", "testDeployGCP/"]
 WORKDIR /src
-COPY ["testDeployGCP.csproj", "./"]
-RUN dotnet restore "./testDeployGCP.csproj" COPY . .
+COPY . .
 WORKDIR "/src/testDeployGCP"
-RUN dotnet build "./testDeployGCP.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet restore "testDeployGCP.csproj"
+RUN dotnet build "testDeployGCP.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
