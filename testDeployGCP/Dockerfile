@@ -7,20 +7,13 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-# Copy only the .csproj first
+# Copy the .csproj file (no subfolder)
 COPY ["testDeployGCP.csproj", "./"]
+RUN dotnet restore "testDeployGCP.csproj"
 
-# Restore dependencies
-RUN dotnet restore "./testDeployGCP.csproj"
-
-# Copy the rest of the source code
 COPY . .
 
-# Change into the project directory
-WORKDIR "/src/testDeployGCP"
-
-# Build
-RUN dotnet build "./testDeployGCP.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "testDeployGCP.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
