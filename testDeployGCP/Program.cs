@@ -13,6 +13,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(8080); // Required for Cloud Run
+});
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
