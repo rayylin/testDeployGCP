@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: us-central1-docker.pkg.dev/YOUR_PROJECT_ID/my-repo/testdepgcp:latest
+        image: us-central1-docker.pkg.dev/TestDeployWeb/my-repo/testdepgcp:latest
         ports:
         - containerPort: 80
