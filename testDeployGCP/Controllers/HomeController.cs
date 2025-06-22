@@ -28,6 +28,8 @@ namespace testDeployGCP.Controllers
                 var connectionString = _configuration["ConnectionStringGCS"]
                       ?? Environment.GetEnvironmentVariable("ConnectionStringGCS");
 
+                _logger.LogInformation("Using connection string: {conn}", connectionString);
+
                 using (var conn = new SqlConnection(connectionString))
                 using (var cmd = new SqlCommand("InsertGcpSql", conn))
                 {
@@ -40,6 +42,7 @@ namespace testDeployGCP.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "SQL connection failed.");
                 return Json(new { success = false, message = ex.Message });
             }
         }
