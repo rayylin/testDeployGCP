@@ -5,6 +5,32 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <img src="~/images/home.png" />
-    <button id="insertCloudSql" title="Run Stored Procedure in Cloud Sql" onclick=""></button>
+    <button id="insertCloudSql" title="Run Stored Procedure in Cloud SQL">
+        Run Cloud SQL Stored Procedure
+    </button>
+
+    <p id="resultMsg" style="margin-top:20px;"></p>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+@section Scripts {
+    <script>
+        document.getElementById("insertCloudSql").addEventListener("click", function () {
+            fetch('/Home/InsertCloudSql', {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("resultMsg").textContent = data.message;
+                })
+                .catch(error => {
+                    document.getElementById("resultMsg").textContent = "Error: " + error;
+                });
+        });
+    </script>
+}
