@@ -25,7 +25,10 @@ namespace testDeployGCP.Controllers
         {
             try
             {
-                using (var conn = new SqlConnection(_configuration["ConnectionStringGCS"]))
+                var connectionString = _configuration["ConnectionStringGCS"]
+                      ?? Environment.GetEnvironmentVariable("ConnectionStringGCS");
+
+                using (var conn = new SqlConnection(connectionString))
                 using (var cmd = new SqlCommand("InsertGcpSql", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;

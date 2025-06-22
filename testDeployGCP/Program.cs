@@ -8,6 +8,10 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// add env variable
+builder.Configuration.AddEnvironmentVariables();
+
+
 var app = builder.Build();
 
 
