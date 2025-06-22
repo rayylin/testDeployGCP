@@ -5,6 +5,9 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <img src="~/images/home.png" />
+
+    @Html.AntiForgeryToken()
+
     <button id="insertCloudSql" title="Run Stored Procedure in Cloud SQL">
         Run Cloud SQL Stored Procedure
     </button>

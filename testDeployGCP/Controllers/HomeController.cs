@@ -4,20 +4,28 @@ using System.Diagnostics;
 using testDeployGCP.Models;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace testDeployGCP.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _configuration;
         private readonly ILogger<HomeController> _logger;
-        private readonly string _connectionString = "";
+        public HomeController(IConfiguration configuration, ILogger<HomeController> logger)
+        {
+            _configuration = configuration;
+            _logger = logger;
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> InsertCloudSql()
         {
             try
             {
-                using (var conn = new SqlConnection(_connectionString))
+                using (var conn = new SqlConnection(_configuration["ConnectionStringGCS"]))
                 using (var cmd = new SqlCommand("InsertGcpSql", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -33,10 +41,6 @@ namespace testDeployGCP.Controllers
             }
         }
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
 
         public IActionResult Index()
         {
