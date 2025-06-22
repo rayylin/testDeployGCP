@@ -21,6 +21,7 @@ namespace testDeployGCP.Controllers
 
 
         [HttpPost]
+        [IgnoreAntiforgeryToken]
         public async Task<IActionResult> InsertCloudSql()
         {
             try
