@@ -1,4 +1,4 @@
-Test Deploy apps to GCP (using cloud run & kubernetes)
+Test Deploy apps to GCP (using cloud run & google kubernetes engine)
 The app can query a SQL Server instance hosted on GCP. Connection credentials are securely stored in appsettings, and access is configured through a VPC to ensure secure communication.
 ![image](https://github.com/user-attachments/assets/10be5866-59f6-42b7-9af4-d9f3fe69ae86)
 
